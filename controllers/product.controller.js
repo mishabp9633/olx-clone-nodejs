@@ -7,6 +7,17 @@ import {  deleteProductByToken,
 import cloudinary from '../utils/cloudinary.utils.js'
 
 
+export async function getTestLog(req, res, next) {
+  try {
+    const user = req.body.user
+    res.status(200).send(user);
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+}
+
+
 export async function saveProduct(req, res, next) {
     try {
       const userId = req.body.user._id

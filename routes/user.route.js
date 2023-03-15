@@ -14,7 +14,7 @@ import {
 } from "../controllers/user.controller.js";
 
 import { userMiddleware } from "../middlewares/user.middleware.js";
-import { role } from "../middlewares/auth.middleware.js";
+import { authorizeRoles } from "../middlewares/auth.middleware.js";
 import { ROLES } from "../constants/role.constants.js";
 
 const router = express.Router();
@@ -22,17 +22,17 @@ const path = "/user";
 
 //..............seller..............//
 router.post(`${path}/signup`, userMiddleware, userData);
-router.post(`${path}/forgotpassword`, role.check(ROLES.seller), forgot);
-router.post(`${path}/resetpassword/:id`, role.check(ROLES.seller), reset);
-router.post(`${path}/get`, role.check(ROLES.seller), getUserByToken);
-router.post(`${path}/update`, role.check(ROLES.seller), updateUserByToken);
-router.post(`${path}/delete`, role.check(ROLES.seller), deleteUserByToken);
+router.post(`${path}/forgotpassword`, authorizeRoles(ROLES.SELLER), forgot);
+router.post(`${path}/resetpassword/:id`, authorizeRoles(ROLES.SELLER), reset);
+router.post(`${path}/get`, authorizeRoles(ROLES.SELLER), getUserByToken);
+router.post(`${path}/update`, authorizeRoles(ROLES.SELLER), updateUserByToken);
+router.post(`${path}/delete`, authorizeRoles(ROLES.SELLER), deleteUserByToken);
 
 //............admin...............//
-router.get(`${path}/user-all`, role.check(ROLES.admin), getusers);
-router.get(`${path}/user-single/:id`, role.check(ROLES.admin), getuser);
-router.put(`${path}/user-update/:id`, role.check(ROLES.admin), updateData);
-router.delete(`${path}/user-delete/:id`, role.check(ROLES.admin), deleteData);
-router.post(`${path}/get`, role.check(ROLES.admin), getAdminByToken);
+router.get(`${path}/user-all`, authorizeRoles(ROLES.ADMIN), getusers);
+router.get(`${path}/user-single/:id`, authorizeRoles(ROLES.ADMIN), getuser);
+router.put(`${path}/user-update/:id`, authorizeRoles(ROLES.ADMIN), updateData);
+router.delete(`${path}/user-delete/:id`, authorizeRoles(ROLES.ADMIN), deleteData);
+router.post(`${path}/get`, authorizeRoles(ROLES.ADMIN), getAdminByToken);
 
 export default router;

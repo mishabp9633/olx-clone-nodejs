@@ -1,13 +1,14 @@
 import { getAllProduct, saveProduct, 
     getAllProductUserByToken, updateProductDataByToken,
-     deleteProductDataByToken ,updateProductPhotoByToken
+     deleteProductDataByToken ,updateProductPhotoByToken,
+     getTestLog
     } from '../controllers/product.controller.js'
 
 import express from 'express'
 import { Delete } from '../services/product.service.js'
 import multer from 'multer'
 
-import { role } from "../middlewares/auth.middleware.js"
+import { authorizeRoles } from "../middlewares/auth.middleware.js"
 import { ROLES } from "../constants/role.constants.js"
 
 
@@ -17,16 +18,19 @@ const upload = multer({storage})
 const router = express.Router()
 const path = "/product"
 
+
+router.get(`/role-test`, authorizeRoles([ROLES.SELLER,ROLES.ADMIN]), getTestLog)
+
 // ...........seller...........//
-router.post(`${path}/new`, upload.array('photos'),role.check(ROLES.seller), saveProduct)
-router.get(`${path}/seller/all`, role.check(ROLES.seller), getAllProductUserByToken)
-router.put(`${path}/seller/update/:id`, role.check(ROLES.seller), updateProductDataByToken)
-router.put(`${path}/seller/update/photos/:id`, upload.array('photos'),role.check(ROLES.seller), updateProductPhotoByToken)
-router.delete(`${path}/seller/delete/:id`, role.check(ROLES.seller), deleteProductDataByToken)
+router.post(`${path}/new`, upload.array('photos'), authorizeRoles(ROLES.SELLER), saveProduct)
+router.get(`${path}/seller/all`, authorizeRoles(ROLES.SELLER), getAllProductUserByToken)
+router.put(`${path}/seller/update/:id`, authorizeRoles(ROLES.SELLER), updateProductDataByToken)
+router.put(`${path}/seller/update/photos/:id`, upload.array('photos'),authorizeRoles(ROLES.SELLER), updateProductPhotoByToken)
+router.delete(`${path}/seller/delete/:id`, authorizeRoles(ROLES.SELLER), deleteProductDataByToken)
 
 //...........admin..............//
-router.get(`${path}/admin/all`, role.check(ROLES.admin), getAllProduct)
-router.delete(`${path}/admin/delete`, role.check(ROLES.admin), Delete)
+router.get(`${path}/admin/all`, authorizeRoles(ROLES.ADMIN), getAllProduct)
+router.delete(`${path}/admin/delete`, authorizeRoles(ROLES.ADMIN), Delete)
 
 
 
