@@ -22,8 +22,8 @@ const path = "/user";
 
 //..............seller..............//
 router.post(`${path}/signup`, userMiddleware, userData);
-router.post(`${path}/forgotpassword`, authorizeRoles(ROLES.SELLER), forgot);
-router.post(`${path}/resetpassword/:id`, authorizeRoles(ROLES.SELLER), reset);
+router.post(`${path}/forgotpassword`, forgot);
+router.post(`${path}/resetpassword/:id`, reset);
 router.post(`${path}/get`, authorizeRoles(ROLES.SELLER), getUserByToken);
 router.post(`${path}/update`, authorizeRoles(ROLES.SELLER), updateUserByToken);
 router.post(`${path}/delete`, authorizeRoles(ROLES.SELLER), deleteUserByToken);

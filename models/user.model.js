@@ -68,10 +68,7 @@ export const userSchema = new Schema({
         type:String,
         default:ROLES.seller,
         enum:[ROLES.admin,ROLES.seller]
-      }
-
-
-      
+      }   
   
 });
 

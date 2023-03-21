@@ -16,7 +16,6 @@ const path = "/category"
 
 //..........admin............//
 router.post(`${path}/new`, authorizeRoles(ROLES.ADMIN), categoryValidator, saveCategory);
-router.post(`${path}/new`,authorizeRoles(ROLES.ADMIN), categoryValidator, saveCategory)
 router.put(`${path}/update/:id`,authorizeRoles(ROLES.ADMIN), updateCategory)
 router.delete(`${path}/delete/:id`,authorizeRoles(ROLES.ADMIN), deleteCategory)
 

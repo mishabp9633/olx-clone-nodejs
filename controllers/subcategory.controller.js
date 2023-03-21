@@ -14,7 +14,8 @@ export async function saveSubcategory(req,res,next){
 
 export async function getAllSubcategory(req,res,next){
     try{
-        const result = await getAll()
+        const categoryId = req.query.categoryId
+        const result = await getAll(categoryId)
         console.log('result',result)
         res.status(200).send(result)
     }catch(err){
@@ -22,6 +23,7 @@ export async function getAllSubcategory(req,res,next){
         next(err)
     }    
 }
+
 
 export async function updateSubcategory(req,res,next){
     try{

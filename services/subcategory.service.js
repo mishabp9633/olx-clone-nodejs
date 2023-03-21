@@ -6,11 +6,22 @@ export async function save(data){
    return{subcategory}
 }
 
-export async function getAll(){
-    const subcategory = await subcategoryModel.find()
+export async function getAll(categoryId){
+   let queryData = {}
+
+   if (categoryId){
+      queryData["categoryId"]= categoryId
+    }
+    const subcategory = await subcategoryModel.find(queryData)
     .populate('categoryId',"categoryName")
     return{subcategory}
  }
+
+ export async function getAllQuery(categoryId){
+   const subcategory = await subcategoryModel.find()
+   .populate('categoryId',"categoryName")
+   return{subcategory}
+}
 
  export async function update(id,data){
     const subcategory = await subcategoryModel.findByIdAndUpdate(id,data,{new:true})
