@@ -19,15 +19,15 @@ const router = express.Router()
 const path = "/product"
 
 // ...........seller...........//
-router.post(`${path}/new`, upload.array('photos'), authorizeRoles(ROLES.SELLER), saveProduct)
-router.get(`${path}/seller/all`, authorizeRoles(ROLES.SELLER), getAllProductUserByToken)
-router.put(`${path}/seller/update/:id`, authorizeRoles(ROLES.SELLER), updateProductDataByToken)
-router.put(`${path}/seller/update/photos/:id`, upload.array('photos'),authorizeRoles(ROLES.SELLER), updateProductPhotoByToken)
-router.delete(`${path}/seller/delete/:id`, authorizeRoles(ROLES.SELLER), deleteProductDataByToken)
+router.post(`${path}/new`, upload.array('photos'), authorizeRoles([ROLES.SELLER]), saveProduct)
+router.get(`${path}/seller/all`, authorizeRoles([ROLES.ADMIN,ROLES.SELLER]), getAllProductUserByToken)
+router.put(`${path}/seller/update/:id`, authorizeRoles([ROLES.SELLER]), updateProductDataByToken)
+router.put(`${path}/seller/update/photos/:id`, upload.array('photos'),authorizeRoles([ROLES.SELLER]), updateProductPhotoByToken)
+router.delete(`${path}/seller/delete/:id`, authorizeRoles([ROLES.SELLER]), deleteProductDataByToken)
 
 //...........admin..............//
-router.get(`${path}/admin/all`, authorizeRoles(ROLES.ADMIN), getAllProduct)
-router.delete(`${path}/admin/delete`, authorizeRoles(ROLES.ADMIN), Delete)
+router.get(`${path}/admin/all`, authorizeRoles([ROLES.ADMIN,ROLES.SELLER]), getAllProduct)
+router.delete(`${path}/admin/delete`, authorizeRoles([ROLES.ADMIN]), Delete)
 
 export default router
 

@@ -15,11 +15,11 @@ const router = express.Router()
 const path = "/category"
 
 //..........admin............//
-router.post(`${path}/new`, authorizeRoles(ROLES.ADMIN), categoryValidator, saveCategory);
-router.put(`${path}/update/:id`,authorizeRoles(ROLES.ADMIN), updateCategory)
-router.delete(`${path}/delete/:id`,authorizeRoles(ROLES.ADMIN), deleteCategory)
+router.post(`${path}/new`, authorizeRoles([ROLES.ADMIN]), categoryValidator, saveCategory);
+router.put(`${path}/update/:id`,authorizeRoles([ROLES.ADMIN]), updateCategory)
+router.delete(`${path}/delete/:id`,authorizeRoles([ROLES.ADMIN]), deleteCategory)
 
 // // ........admin and seller.........//
-router.get(`${path}/all`,authorizeRoles(ROLES.ADMIN),getAllCategory)
+router.get(`${path}/all`,authorizeRoles([ROLES.ADMIN]),getAllCategory)
 
 export default router
