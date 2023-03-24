@@ -25,15 +25,17 @@ export async function saveProduct(req, res, next) {
       console.log("productData",productData)
   
       const photos = []
-  
-      for (const file of req.files) {
-        const publicId = `product/${file.filename}`;
-        const result = await cloudinary.uploader.upload(file.path ,{ public_id: publicId })
-        photos.push({
-          publicId: result.public_id,
-          url: result.secure_url
-        });
-      }
+  if (req.files) {
+    for (const file of req.files) {
+      const publicId = `product/${file.filename}`;
+      const result = await cloudinary.uploader.upload(file.path ,{ public_id: publicId })
+      photos.push({
+        publicId: result.public_id,
+        url: result.secure_url
+      });
+    }
+  }
+
   
       productData.photos = photos;
   
@@ -101,6 +103,7 @@ export async function deleteProduct(req,res,next){
         console.log('photos:', photos);
   
         // Delete photos in cloudinary
+
         for (const photo of photos) {
           console.log(photo);
           await cloudinary.uploader.destroy(photo.publicId);

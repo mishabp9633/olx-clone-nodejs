@@ -18,9 +18,6 @@ const upload = multer({storage})
 const router = express.Router()
 const path = "/product"
 
-
-router.get(`/role-test`, authorizeRoles([ROLES.SELLER,ROLES.ADMIN]), getTestLog)
-
 // ...........seller...........//
 router.post(`${path}/new`, upload.array('photos'), authorizeRoles(ROLES.SELLER), saveProduct)
 router.get(`${path}/seller/all`, authorizeRoles(ROLES.SELLER), getAllProductUserByToken)
@@ -31,8 +28,6 @@ router.delete(`${path}/seller/delete/:id`, authorizeRoles(ROLES.SELLER), deleteP
 //...........admin..............//
 router.get(`${path}/admin/all`, authorizeRoles(ROLES.ADMIN), getAllProduct)
 router.delete(`${path}/admin/delete`, authorizeRoles(ROLES.ADMIN), Delete)
-
-
 
 export default router
 
