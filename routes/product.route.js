@@ -21,8 +21,8 @@ const path = "/product"
 // ...........seller...........//
 router.post(`${path}/new`, upload.array('photos'), authorizeRoles([ROLES.SELLER]), saveProduct)
 router.get(`${path}/seller/all`, authorizeRoles([ROLES.ADMIN,ROLES.SELLER]), getAllProductUserByToken)
-router.put(`${path}/seller/update/:id`, authorizeRoles([ROLES.SELLER]), updateProductDataByToken)
-router.put(`${path}/seller/update/photos/:id`, upload.array('photos'),authorizeRoles([ROLES.SELLER]), updateProductPhotoByToken)
+router.put(`${path}/seller/update/:id`, authorizeRoles([ROLES.ADMIN,ROLES.SELLER]), updateProductDataByToken)
+router.put(`${path}/seller/update/photos/:id`, upload.array('photos'),authorizeRoles([ROLES.ADMIN,ROLES.SELLER]), updateProductPhotoByToken)
 router.delete(`${path}/seller/delete/:id`, authorizeRoles([ROLES.SELLER]), deleteProductDataByToken)
 
 //...........admin..............//
