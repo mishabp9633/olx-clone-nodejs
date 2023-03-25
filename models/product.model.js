@@ -4,6 +4,9 @@ const productDetailsSchema = new Schema({
     brand: {
       type: String,
     },
+    type: {
+      type: String,
+    },
     noOfOwner: {
         type: String,
       },
