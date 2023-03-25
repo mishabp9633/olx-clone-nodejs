@@ -1,4 +1,4 @@
-import {  deleteProductByToken,
+import {  Delete, deleteProductByToken,
      getAll, getPhotoById, getProductByToken,
       getSingle,
       save, updatePhotoByToken, updateProductByToken 
