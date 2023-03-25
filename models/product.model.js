@@ -50,34 +50,34 @@ const productSchema = new Schema({
     type: productDetailsSchema,
     required: true
   },
-  state: {
+  district: {
     type: String,
-    required: true
+    // required: true
   },
   city: {
     type: String,
-    required: true
+    // required: true
   },
   neighbourhood: {
     type: String,
-    required: true
+    // required: true
   },
-  location: {
-    type: {
-      type: String,
-      enum: ["Point"],
-      required: true
-    },
-    coordinates: {
-      type: [Number],
-      required: true
-    }
-  },
+  // location: {
+  //   type: {
+  //     type: String,
+  //     enum: ["Point"],
+  //     required: true
+  //   },
+  //   coordinates: {
+  //     type: [Number],
+  //     required: true
+  //   }
+  // },
   photos: [{
     type:String,
     publicId: String,
     url: String,
-    required: true,
+    // required: true,
   }],
   price: {
     type: Number,
