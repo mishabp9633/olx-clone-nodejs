@@ -51,7 +51,7 @@ const productSchema = new Schema({
   },
   details: {
     type: productDetailsSchema,
-    required: true
+    // required: true
   },
   district: {
     type: String,
