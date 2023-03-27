@@ -13,7 +13,7 @@ export async function getAll(){
     const product = await productModel.find()
     .populate("userId",["name","email","mobileNo"])
     .populate("categoryId","categoryName")
-    .populate("subcategoryId","subCategoryName")
+    .populate("subcategoryId","subcategoryName")
     console.log(product)
     return{product}
  }
