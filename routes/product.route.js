@@ -1,7 +1,8 @@
 import { getAllProduct, saveProduct, 
     getAllProductUserByToken, updateProductDataByToken,
      deleteProductDataByToken ,updateProductPhotoByToken,
-     getSingleProduct
+     getSingleProduct,
+     deleteProduct
     } from '../controllers/product.controller.js'
 
 import express from 'express'
@@ -28,7 +29,7 @@ router.delete(`${path}/seller/delete/:id`, authorizeRoles([ROLES.SELLER]), delet
 
 //...........admin..............//
 router.get(`${path}/admin/all`, authorizeRoles([ROLES.ADMIN,ROLES.SELLER]), getAllProduct)
-router.delete(`${path}/admin/delete`, authorizeRoles([ROLES.ADMIN]), Delete)
+router.delete(`${path}/admin/delete`, authorizeRoles([ROLES.ADMIN]), deleteProduct)
 
 export default router
 
