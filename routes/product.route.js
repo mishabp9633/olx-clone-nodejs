@@ -1,7 +1,7 @@
 import { getAllProduct, saveProduct, 
     getAllProductUserByToken, updateProductDataByToken,
      deleteProductDataByToken ,updateProductPhotoByToken,
-     getTestLog
+     getSingleProduct
     } from '../controllers/product.controller.js'
 
 import express from 'express'
@@ -21,6 +21,7 @@ const path = "/product"
 // ...........seller...........//
 router.post(`${path}/new`, upload.array('photos'), authorizeRoles([ROLES.SELLER]), saveProduct)
 router.get(`${path}/seller/all`, authorizeRoles([ROLES.ADMIN,ROLES.SELLER]), getAllProductUserByToken)
+router.get(`${path}/seller/all/:id`, authorizeRoles([ROLES.ADMIN,ROLES.SELLER]), getSingleProduct)
 router.put(`${path}/seller/update/:id`, authorizeRoles([ROLES.ADMIN,ROLES.SELLER]), updateProductDataByToken)
 router.put(`${path}/seller/update/photos/:id`, upload.array('photos'),authorizeRoles([ROLES.ADMIN,ROLES.SELLER]), updateProductPhotoByToken)
 router.delete(`${path}/seller/delete/:id`, authorizeRoles([ROLES.SELLER]), deleteProductDataByToken)

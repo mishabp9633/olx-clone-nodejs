@@ -9,8 +9,10 @@ export async function save(productData){
     return {product}
 }
 
-export async function getAll(){
+export async function getAll(page,limit){
     const product = await productModel.find()
+    .limit(toNumber(limit))
+    .skip((toNumber(page ? page : 1) - 1) * toNumber(limit))
     .populate("userId",["name","email","mobileNo"])
     .populate("categoryId","categoryName")
     .populate("subcategoryId","subcategoryName")
