@@ -29,7 +29,7 @@ router.delete(`${path}/seller/delete/:id`, authorizeRoles([ROLES.SELLER]), delet
 
 //...........admin..............//
 router.get(`${path}/admin/all`, authorizeRoles([ROLES.ADMIN,ROLES.SELLER]), getAllProduct)
-router.delete(`${path}/admin/delete`, authorizeRoles([ROLES.ADMIN]), deleteProduct)
+router.delete(`${path}/admin/delete/:id`, authorizeRoles([ROLES.ADMIN]), deleteProduct)
 
 export default router
 
