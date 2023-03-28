@@ -1,6 +1,7 @@
 import productModel from "../models/product.model.js"
 import {HttpException} from '../exceptions/exceptions.js';
 import cloudinary from '../utils/cloudinary.utils.js'
+import { toNumber } from "lodash";
 
 
 export async function save(productData){
