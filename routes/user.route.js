@@ -33,6 +33,6 @@ router.get(`${path}/user-all`, authorizeRoles([ROLES.ADMIN]), getusers);
 router.get(`${path}/user-single/:id`, authorizeRoles([ROLES.ADMIN]), getuser);
 router.put(`${path}/user-update/:id`, authorizeRoles([ROLES.ADMIN]), updateData);
 router.delete(`${path}/user-delete/:id`, authorizeRoles([ROLES.ADMIN]), deleteData);
-router.post(`${path}/get`, authorizeRoles([ROLES.ADMIN]), getAdminByToken);
+router.post(`${path}/admin/get`, authorizeRoles([ROLES.ADMIN]), getAdminByToken);
 
 export default router;
