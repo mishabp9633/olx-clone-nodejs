@@ -18,8 +18,10 @@ export async function getAll(page,limit){
     .populate("userId",["name","email","mobileNo"])
     .populate("categoryId","categoryName")
     .populate("subcategoryId","subcategoryName")
+
+    const total = await productModel.find().countDocuments()
     console.log(product)
-    return{product}
+    return{product,total}
  }
  
 
@@ -43,8 +45,6 @@ export async function getAll(page,limit){
    console.log(product)
    return{product}
 }
-
-
 
 
  export async function Delete(id){
