@@ -24,7 +24,7 @@ const path = "/user";
 router.post(`${path}/signup`, userMiddleware, userData);
 router.post(`${path}/forgotpassword`, forgot);
 router.post(`${path}/resetpassword/:id`, reset);
-router.post(`${path}/get`, authorizeRoles([ROLES.SELLER]), getUserByToken);
+router.post(`${path}/get`, authorizeRoles([ROLES.SELLER,ROLES.ADMIN]), getUserByToken)
 router.post(`${path}/update`, authorizeRoles([ROLES.SELLER]), updateUserByToken);
 router.post(`${path}/delete`, authorizeRoles([ROLES.SELLER]), deleteUserByToken);
 
@@ -33,6 +33,6 @@ router.get(`${path}/user-all`, authorizeRoles([ROLES.ADMIN]), getusers);
 router.get(`${path}/user-single/:id`, authorizeRoles([ROLES.ADMIN]), getuser);
 router.put(`${path}/user-update/:id`, authorizeRoles([ROLES.ADMIN]), updateData);
 router.delete(`${path}/user-delete/:id`, authorizeRoles([ROLES.ADMIN]), deleteData);
-router.post(`${path}/admin/get`, authorizeRoles([ROLES.ADMIN]), getAdminByToken);
+// router.post(`${path}/admin/get`, authorizeRoles(), getAdminByToken);
 
 export default router;
