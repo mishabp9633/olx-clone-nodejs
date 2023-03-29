@@ -1,6 +1,6 @@
 import express from "express";
-import cors from "cors"
-import dotenv from "dotenv"
+import cors from "cors";
+import 'dotenv/config';
 
 import { initialize } from './database/connection.js';
 
@@ -15,7 +15,6 @@ import {errorHandling} from './middlewares/error.middleware.js'
 
   await initialize()
 
-  dotenv.config()
   const app = express()
 
   app.use(cors({ origin: true, credentials: true }));

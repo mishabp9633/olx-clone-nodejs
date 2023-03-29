@@ -29,7 +29,7 @@ const productSchema = new Schema({
   userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        // required: true
+        required: true
       },
   categoryId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -61,10 +61,10 @@ const productSchema = new Schema({
     type: String,
     // required: true
   },
-  neighbourhood: {
-    type: String,
-    // required: true
-  },
+  // neighbourhood: {
+  //   type: String,
+  //   // required: true
+  // },
   // location: {
   //   type: {
   //     type: String,
@@ -77,7 +77,6 @@ const productSchema = new Schema({
   //   }
   // },
   photos: [{
-    type:String,
     publicId: String,
     url: String,
     // required: true,
