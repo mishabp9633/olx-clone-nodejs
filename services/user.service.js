@@ -34,7 +34,7 @@ export async function getAllData (){
 }
 
 export async function getDataUserByToken (){
-  const result =await userModel.find({_id:id})
+  const result = await userModel.find({_id:id})
   if(!result)throw new HttpException (404,"User not found by the given Token")
   return {result}
 }
