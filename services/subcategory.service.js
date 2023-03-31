@@ -1,9 +1,20 @@
 import {HttpException} from '../exceptions/exceptions.js';
+import categoryModel from '../models/category.model.js';
 import subcategoryModel from '../models/subcategory.model.js'
+import { saveSubcategories } from './category.service.js';
 
 export async function save(data){
    const subcategory = await subcategoryModel.create({...data})
-   return{subcategory}
+
+   console.log(subcategory)
+
+   let categoryId = subcategory.categoryId
+   let subCategoryData = {
+      subcategory : subcategory._id
+   } 
+
+   await saveSubcategories(categoryId, subCategoryData)
+   return {subcategory}
 }
 
 export async function getAll(categoryId){
@@ -34,6 +45,12 @@ export async function getAll(categoryId){
     if(!subcategory) throw new HttpException(404, "subcategory not found")
     return{subcategory}
  }
+
+ export async function deleteSubcategories(id){
+   const subcategory = await subcategoryModel.findByIdAndDelete(id)
+   if(!subcategory) throw new HttpException(404, "subcategory not found")
+   return{subcategory}
+}
 
  //....(motorcycle controller)....//
  export async function findCategoryId(id){

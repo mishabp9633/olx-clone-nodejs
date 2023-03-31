@@ -6,9 +6,14 @@ export const categorySchema = new Schema({
     type: String,
     required: true,
     enum:["Bike","Car","Other"]
-    
-  } 
+  } ,
+  subcategory:[
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Subcategory"
+    }
+  ],
 },{timestamps:true})
 
-const  category= model("Category", categorySchema)
-export default category
+const  categoryModel= model("Category", categorySchema)
+export default categoryModel

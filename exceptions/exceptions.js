@@ -1,6 +1,6 @@
 export class HttpException extends Error {
   status
-  message;
+  message
 
   constructor(status, message) {
     super(message);
