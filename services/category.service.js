@@ -19,8 +19,14 @@ export async function getAll(){
  }
 
  export async function saveSubcategories(categoryId, subCategoryData){
-   const category = await categoryModel.findByIdAndUpdate(categoryId,subCategoryData,{new:true})
+   let category = await categoryModel.findById(categoryId)
+   console.log(category);
    if (!category) throw new HttpException(404, " category not found")
+
+    category = new categoryModel ({
+      subCategoryData
+   })
+   await category.save({ validateBeforeSave: false });
    return{category}
 }
 

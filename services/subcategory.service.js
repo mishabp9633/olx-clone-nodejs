@@ -47,6 +47,7 @@ export async function getAll(categoryId){
  }
 
  export async function deleteSubcategories(id){
+   
    const subcategory = await subcategoryModel.findByIdAndDelete(id)
    if(!subcategory) throw new HttpException(404, "subcategory not found")
    return{subcategory}
