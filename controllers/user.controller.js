@@ -1,7 +1,8 @@
 import {
     getAllData, getSingleData, update, Delete, 
     save, forgotPassword, resetPassword, 
-    getDataUserByToken, getDataAdminByToken,
+    // getDataUserByToken, 
+    getDataAdminByToken,
 } from '../services/user.service.js'
 
 import { google } from 'googleapis'
@@ -42,10 +43,10 @@ export async function getusers(req, res, next) {
 
 export async function getUserByToken(req, res, next) {
     try {
-        const userId = req.body.user._id
-        const result = await getDataUserByToken(userId)
+        const user = req.body.user
+        // const result = await getDataUserByToken(userId)
 
-        res.send(result)
+        res.send(user)
     }
     catch (err) {
         next(err)
