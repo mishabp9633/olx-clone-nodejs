@@ -2,6 +2,9 @@ import {HttpException} from '../exceptions/exceptions.js';
 import categoryModel from '../models/category.model.js';
 import subcategoryModel from '../models/subcategory.model.js'
 import { saveSubcategories } from './category.service.js';
+import lodash from 'lodash';
+const { toNumber } = lodash
+
 
 export async function save(data){
    const subcategory = await subcategoryModel.create({...data})
@@ -17,13 +20,15 @@ export async function save(data){
    return {subcategory}
 }
 
-export async function getAll(categoryId){
+export async function getAll(categoryId, page, limit){
    let queryData = {}
 
    if (categoryId){
       queryData["categoryId"]= categoryId
     }
     const subcategory = await subcategoryModel.find(queryData)
+    .limit(toNumber(limit))
+    .skip((toNumber(page ? page : 1) - 1) * toNumber(limit))
     .populate('categoryId',"categoryName")
     return{subcategory}
  }

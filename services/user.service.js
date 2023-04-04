@@ -4,7 +4,8 @@ import bcrypt from "bcrypt"
 import crypto from 'crypto'
 import createError from "http-errors"
 import {HttpException} from '../exceptions/exceptions.js';
-
+import lodash from 'lodash';
+const { toNumber } = lodash
 
 
 export async function save (userdata){
@@ -28,8 +29,10 @@ export async function save (userdata){
 }
 
 
-export async function getAllData (){
-    const result =await userModel.find()
+export async function getAllData (page, limit){
+    const result = await userModel.find()
+    .limit(toNumber(limit))
+    .skip((toNumber(page ? page : 1) - 1) * toNumber(limit))
     return {result}
 }
 

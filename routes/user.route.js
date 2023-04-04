@@ -9,7 +9,6 @@ import {
   reset,
   getUserByToken,
   updateUserByToken,
-  getAdminByToken,
   deleteUserByToken,
 } from "../controllers/user.controller.js";
 

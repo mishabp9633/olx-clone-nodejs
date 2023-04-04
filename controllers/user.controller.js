@@ -31,8 +31,9 @@ export async function userData(req, res, next) {
 
 export async function getusers(req, res, next) {
     try {
-
-        const result = await getAllData()
+        const page = req.query.page
+        const limit = req.query.limit || '10'
+        const result = await getAllData(page, limit)
         res.send(result)
     }
     catch (err) {

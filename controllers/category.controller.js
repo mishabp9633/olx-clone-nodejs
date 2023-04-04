@@ -14,7 +14,9 @@ export async function saveCategory(req,res,next){
 
 export async function getAllCategory(req,res,next){
     try{
-        const result = await getAll()
+        const page = req.query.page
+        const limit = req.query.limit || '10'
+        const result = await getAll(page, limit)
         console.log('result',result)
         res.status(200).send(result)
     }catch(err){

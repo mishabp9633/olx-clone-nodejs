@@ -14,8 +14,10 @@ export async function saveSubcategory(req,res,next){
 
 export async function getAllSubcategory(req,res,next){
     try{
+        const page = req.query.page
+        const limit = req.query.limit || '10'
         const categoryId = req.query.categoryId
-        const result = await getAll(categoryId)
+        const result = await getAll(categoryId, page, limit)
         console.log('result',result)
         res.status(200).send(result)
     }catch(err){
