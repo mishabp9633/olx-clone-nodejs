@@ -51,15 +51,14 @@ const productSchema = new Schema({
   },
   details: {
     type: productDetailsSchema,
-    // required: true
   },
   district: {
     type: String,
-    // required: true
+    required: true
   },
   city: {
     type: String,
-    // required: true
+    required: true
   },
   // neighbourhood: {
   //   type: String,

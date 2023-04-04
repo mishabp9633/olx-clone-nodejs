@@ -5,7 +5,7 @@ export const categorySchema = new Schema({
   categoryName: {
     type: String,
     required: true,
-    enum:["Bike","Car","Other"]
+    // enum:["Bike","Car","Other"]
   } ,
   subcategory:[
     {

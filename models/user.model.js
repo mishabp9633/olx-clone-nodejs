@@ -66,8 +66,8 @@ export const userSchema = new Schema({
       },
       role: {
         type:String,
-        default:ROLES.seller,
-        enum:[ROLES.admin,ROLES.seller]
+        default:ROLES.SELLER,
+        enum:[ROLES.ADMIN,ROLES.SELLER]
       }   
   
 });

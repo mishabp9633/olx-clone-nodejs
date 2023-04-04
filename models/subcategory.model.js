@@ -2,7 +2,7 @@ import mongoose,{Schema,model} from "mongoose";
 
 export const subcategorySchema = new Schema({
 
-    categoryId:{
+  categoryId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Category',
         required:true

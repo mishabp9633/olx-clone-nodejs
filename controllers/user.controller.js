@@ -44,6 +44,10 @@ export async function getusers(req, res, next) {
 export async function getUserByToken(req, res, next) {
     try {
         const user = req.body.user
+        if(!user){
+            res.status(404).send({ message:"user not found"})
+        }
+       
         // const result = await getDataUserByToken(userId)
 
         res.send(user)
