@@ -1,6 +1,6 @@
 import mongoose,{Schema,model} from "mongoose";
 
-export const subcategorySchema = new Schema({
+const subcategorySchema = new Schema({
 
   categoryId:{
         type:mongoose.Schema.Types.ObjectId,

@@ -9,6 +9,8 @@ import authRouter from './routes/auth.route.js'
 import categoryRouter from './routes/category.route.js'
 import subcategoryRouter from './routes/subcategory.route.js'
 import productRouter from './routes/product.route.js'
+import staticRouter from './routes/static.route.js'
+
 // import swaggerRouter from './swagger.js';
 
 import {errorHandling} from './middlewares/error.middleware.js'
@@ -26,7 +28,8 @@ import {errorHandling} from './middlewares/error.middleware.js'
     authRouter,
     categoryRouter,
     subcategoryRouter,
-    productRouter
+    productRouter,
+    staticRouter
     )
   // app.use('/swagger', swaggerRouter); 
   app.use(errorHandling)
