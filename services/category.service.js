@@ -1,6 +1,5 @@
 import categoryModel from '../models/category.model.js'
 import {HttpException} from '../exceptions/exceptions.js';
-import { deleteSubcategories } from './subcategory.service.js';
 import lodash from 'lodash';
 const { toNumber } = lodash
 
@@ -39,11 +38,6 @@ export async function getAll(page, limit){
  export async function Delete(id){
     const category = await categoryModel.findByIdAndDelete(id)
     if (!category) throw new HttpException(404, "category not found")
-
-    const subcategoryId = category.subcategory
-    console.log(subcategoryId);
-
-    await deleteSubcategories(subcategoryId)
 
     return{category}
  }

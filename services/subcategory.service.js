@@ -53,12 +53,22 @@ export async function getAll(categoryId, page, limit){
     return{subcategory}
  }
 
- export async function deleteSubcategories(id){
-   
-   const subcategory = await subcategoryModel.findByIdAndDelete(id)
-   if(!subcategory) throw new HttpException(404, "subcategory not found")
-   return{subcategory}
-}
+ export async function deleteSubcategories(id) {
+   const subcategories = await subcategoryModel.find({ categoryId: id });
+   console.log("Subcategories:", subcategories);
+ 
+   if (!subcategories || subcategories.length === 0) {
+     throw new HttpException(404, "Subcategories not found");
+   }
+ 
+   subcategories.forEach(async (subcategory) => {
+     await subcategoryModel.findByIdAndDelete(subcategory._id);
+     console.log("Deleted subcategory:", subcategory);
+   });
+ 
+   return { message: "Subcategories deleted successfully" };
+ }
+ 
 
  //....(motorcycle controller)....//
  export async function findCategoryId(id){
