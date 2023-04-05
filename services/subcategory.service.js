@@ -8,15 +8,6 @@ const { toNumber } = lodash
 
 export async function save(data){
    const subcategory = await subcategoryModel.create({...data})
-
-   console.log(subcategory)
-
-   let categoryId = subcategory.categoryId
-   let subCategoryData = {
-      subcategory : subcategory._id
-   } 
-
-   await saveSubcategories(categoryId, subCategoryData)
    return {subcategory}
 }
 
