@@ -7,6 +7,7 @@ import {
 
 import { google } from 'googleapis'
 import userModel from "../models/user.model.js"
+import { deleteUserProduct } from '../services/product.service.js'
 
 
 
@@ -111,6 +112,8 @@ export async function updateUserByToken(req, res, next) {
 export async function deleteUserByToken(req, res, next) {
     try {
         const userId = req.body.user._id
+
+        await deleteUserProduct(userId)
         const result = await Delete(userId)
         res.send(result)
     } catch (err) {
@@ -119,10 +122,13 @@ export async function deleteUserByToken(req, res, next) {
 }
 
 
-export async function deleteData(req, res, next) {
+export async function deleteUserByAdminData(req, res, next) {
     try {
-        const result = await Delete(req.params.id)
-        res.send(result)
+        const userId = req.params.id
+        
+        await deleteUserProduct(userId)
+        const result = await Delete(userId)
+        res.send({message:"Deleted user"})
     } catch (err) {
         next(err)
     }

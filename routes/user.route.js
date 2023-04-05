@@ -3,13 +3,12 @@ import {
   getuser,
   getusers,
   updateData,
-  deleteData,
-  userData,
   forgot,
   reset,
   getUserByToken,
   updateUserByToken,
   deleteUserByToken,
+  deleteUserByAdminData,
 } from "../controllers/user.controller.js";
 
 import { userMiddleware } from "../middlewares/user.middleware.js";
@@ -31,7 +30,7 @@ router.post(`${path}/delete`, authorizeRoles([ROLES.SELLER]), deleteUserByToken)
 router.get(`${path}/user-all`, authorizeRoles([ROLES.ADMIN]), getusers);
 router.get(`${path}/user-single/:id`, authorizeRoles([ROLES.ADMIN]), getuser);
 router.put(`${path}/user-update/:id`, authorizeRoles([ROLES.ADMIN]), updateData);
-router.delete(`${path}/user-delete/:id`, authorizeRoles([ROLES.ADMIN]), deleteData);
+router.delete(`${path}/user-delete/:id`, authorizeRoles([ROLES.ADMIN]), deleteUserByAdminData);
 // router.post(`${path}/admin/get`, authorizeRoles(), getAdminByToken);
 
 export default router;

@@ -52,6 +52,22 @@ export async function getAll(page,limit){
     return{product}
  }
 
+ export async function deleteUserProduct(id){
+   const products = await productModel.find({ userId: id });
+   console.log("product:", products);
+ 
+   if (!products || products.length === 0) {
+     throw new HttpException(404, "product not found");
+   }
+ 
+   products.forEach(async (product) => {
+     await productModel.findByIdAndDelete(product._id);
+     console.log("Deleted product:", product);
+   });
+ 
+   return { message: "Product deleted successfully" };
+}
+
  export async function deleteProductByToken(userId,productId){
     const productData = await productModel.findById(userId) 
     if(!productData) throw new HttpException(404, "User not have any product yet")
