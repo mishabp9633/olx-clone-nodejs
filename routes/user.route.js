@@ -3,6 +3,7 @@ import {
   getuser,
   getusers,
   updateData,
+  userData,
   forgot,
   reset,
   getUserByToken,
