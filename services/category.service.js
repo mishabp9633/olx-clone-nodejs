@@ -14,7 +14,8 @@ export async function getAll(page, limit){
     const category = await categoryModel.find()
     .limit(toNumber(limit))
     .skip((toNumber(page ? page : 1) - 1) * toNumber(limit))
-    return{category}
+    const total = await categoryModel.find().countDocuments()
+    return{category,total }
  }
 
  export async function update(id,data){

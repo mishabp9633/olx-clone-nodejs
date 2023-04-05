@@ -30,7 +30,9 @@ export async function getAll(categoryId, page, limit){
     .limit(toNumber(limit))
     .skip((toNumber(page ? page : 1) - 1) * toNumber(limit))
     .populate('categoryId',"categoryName")
-    return{subcategory}
+    const total = await subcategoryModel.find().countDocuments()
+
+    return{subcategory, total}
  }
 
  export async function getAllQuery(categoryId){

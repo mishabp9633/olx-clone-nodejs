@@ -33,7 +33,9 @@ export async function getAllData (page, limit){
     const result = await userModel.find()
     .limit(toNumber(limit))
     .skip((toNumber(page ? page : 1) - 1) * toNumber(limit))
-    return {result}
+    const total = await userModel.find().countDocuments()
+
+    return {result, total}
 }
 
 export async function getDataUserByToken (id){
