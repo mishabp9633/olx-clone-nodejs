@@ -57,16 +57,16 @@ export async function getAll(categoryId, page, limit){
    const subcategories = await subcategoryModel.find({ categoryId: id });
    console.log("Subcategories:", subcategories);
  
-   if (!subcategories || subcategories.length === 0) {
-     throw new HttpException(404, "Subcategories not found");
+   if (subcategories){
+      subcategories.forEach(async (subcategory) => {
+         await subcategoryModel.findByIdAndDelete(subcategory._id);
+         console.log("Deleted subcategory:", subcategory);
+       });
+     
+       return { message: "Subcategories deleted successfully" };
    }
  
-   subcategories.forEach(async (subcategory) => {
-     await subcategoryModel.findByIdAndDelete(subcategory._id);
-     console.log("Deleted subcategory:", subcategory);
-   });
- 
-   return { message: "Subcategories deleted successfully" };
+ return {message: "No subcategories"}
  }
  
 
