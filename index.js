@@ -10,6 +10,7 @@ import categoryRouter from './routes/category.route.js'
 import subcategoryRouter from './routes/subcategory.route.js'
 import productRouter from './routes/product.route.js'
 import staticRouter from './routes/static.route.js'
+import ProductImageRoute from "./routes/productImage.route.js";
 
 // import swaggerRouter from './swagger.js';
 
@@ -29,7 +30,8 @@ import {errorHandling} from './middlewares/error.middleware.js'
     categoryRouter,
     subcategoryRouter,
     productRouter,
-    staticRouter
+    staticRouter,
+    ProductImageRoute
     )
   // app.use('/swagger', swaggerRouter); 
   app.use(errorHandling)

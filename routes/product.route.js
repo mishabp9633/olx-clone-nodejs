@@ -6,7 +6,6 @@ import { getAllProduct, saveProduct,
     } from '../controllers/product.controller.js'
 
 import express from 'express'
-import { Delete } from '../services/product.service.js'
 import multer from 'multer'
 
 import { authorizeRoles } from "../middlewares/auth.middleware.js"
