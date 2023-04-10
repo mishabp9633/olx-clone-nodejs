@@ -1,4 +1,4 @@
-import { productImageCreate, productImageDelete, productImageUpdate } from "../services/productImage.service";
+import { productImageCreate, productImageDelete, productImageUpdate } from "../services/productImage.service.js";
 
 
 

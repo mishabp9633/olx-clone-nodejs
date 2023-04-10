@@ -1,8 +1,8 @@
 
 import { Router } from 'express';
 import multer from 'multer'
-import { ROLES } from '../constants/role.constants';
-import { createProductImage, deleteProductImage, updateProductImage } from '../controllers/productImage.controller';
+import { ROLES } from '../constants/role.constants.js';
+import { createProductImage, deleteProductImage, updateProductImage } from '../controllers/productImage.controller.js';
 import { authorizeRoles } from "../middlewares/auth.middleware.js"
 
 const storage = multer.diskStorage({})
