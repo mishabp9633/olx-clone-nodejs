@@ -22,7 +22,7 @@ import userModel from "../models/user.model.js"
         });
       }
       Product.photos.push(...images);
-      const productImage = await Product.save();
+      const productImage = await Product.save({ validateBeforeSave: false });
       return productImage;
     }
   
@@ -40,7 +40,7 @@ import userModel from "../models/user.model.js"
         });
       }
       User.photos.push(...images);
-      const userProfile = await User.save();
+      const userProfile = await User.save({ validateBeforeSave: false })
       return userProfile;
     }
     return ({message:"image upload failed"})
@@ -62,7 +62,7 @@ import userModel from "../models/user.model.js"
       });
     }
     Product.photos.push(...images);
-    const productImage = await Product.save();
+    const productImage = await Product.save({ validateBeforeSave: false })
     return productImage;
   }
 
@@ -80,7 +80,7 @@ import userModel from "../models/user.model.js"
       });
     }
     User.photos.push(...images);
-    const userProfile = await User.save();
+    const userProfile = await User.save({ validateBeforeSave: false })
     return userProfile;
   }
 
