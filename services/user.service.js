@@ -145,3 +145,10 @@ export async function resetPassword(password,confirmPassword,token){
 
 return {user}
 }
+
+export async function usernameCheck(nameCheckText, userId){
+  const user = await this.users.findOne({ username: nameCheckText })
+  return userId
+    ? toString(user?._id) === userId
+    : !user;
+}

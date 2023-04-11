@@ -3,12 +3,12 @@ import {
     save, forgotPassword, resetPassword, 
     // getDataUserByToken, 
     getDataAdminByToken,
+    usernameCheck,
 } from '../services/user.service.js'
 
 import { google } from 'googleapis'
 import userModel from "../models/user.model.js"
 import { deleteUserProduct } from '../services/product.service.js'
-
 
 
 export async function userData(req, res, next) {
@@ -191,7 +191,19 @@ export async function reset(req, res, next) {
         console.log(result);
 
     } catch (err) {
-        next({ err })
+        next( err )
     }
 }
+
+export async function checkUsername(req, res, next) {
+    try {
+      const userId = req.query.userId 
+      const username = req.body.username
+      const registerUsernameData = await usernameCheck(username, userId);
+
+      res.status(200).json(registerUsernameData);
+    } catch (error) {
+      next(error);
+    }
+  }
 

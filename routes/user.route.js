@@ -10,6 +10,7 @@ import {
   updateUserByToken,
   deleteUserByToken,
   deleteUserByAdminData,
+  checkUsername,
 } from "../controllers/user.controller.js";
 
 import { userMiddleware } from "../middlewares/user.middleware.js";
@@ -32,6 +33,8 @@ router.get(`${path}/user-all`, authorizeRoles([ROLES.ADMIN]), getusers);
 router.get(`${path}/user-single/:id`, authorizeRoles([ROLES.ADMIN, ROLES.SELLER]), getuser);
 router.put(`${path}/user-update/:id`, authorizeRoles([ROLES.ADMIN]), updateData);
 router.delete(`${path}/user-delete/:id`, authorizeRoles([ROLES.ADMIN]), deleteUserByAdminData);
-// router.post(`${path}/admin/get`, authorizeRoles(), getAdminByToken);
+
+//.................username check...........//
+router.post(`${path}/username/check`, checkUsername);
 
 export default router;
