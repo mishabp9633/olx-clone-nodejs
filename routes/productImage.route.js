@@ -15,7 +15,7 @@ const path = "/productImage"
    // admin
     // router.get(`${path}/admin/all`, authorizeRoles([ROLE.ADMIN, ROLE.USER]), productImageController.getProductImages);
     // router.get(`${path}/admin/:id`, authorizeRoles([ROLE.ADMIN, ROLE.USER]), productImageController.getProductImageById);
-    ProductImageRoute.post(`${path}/admin/new`,upload.array("photo"), authorizeRoles([ROLES.SELLER]), createProductImage);
+    ProductImageRoute.post(`${path}/admin/new`,upload.array("photo"), createProductImage);
     ProductImageRoute.post(`${path}/admin/update`,upload.array("photo"), authorizeRoles([ROLES.SELLER]), updateProductImage);
     ProductImageRoute.delete(`${path}/admin/delete`, authorizeRoles([ROLES.SELLER]), deleteProductImage);
   

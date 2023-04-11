@@ -39,10 +39,11 @@ import userModel from "../models/user.model.js"
           url: result.secure_url,
         });
       }
-      User.images.push(...images);
+      User.photos.push(...images);
       const userProfile = await User.save();
       return userProfile;
     }
+    return ({message:"image upload failed"})
   }
 
  export async function productImageUpdate (productId, files, userId){
@@ -60,7 +61,7 @@ import userModel from "../models/user.model.js"
         url: result.secure_url,
       });
     }
-    Product.images.push(...images);
+    Product.photos.push(...images);
     const productImage = await Product.save();
     return productImage;
   }
