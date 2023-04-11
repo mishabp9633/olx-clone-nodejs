@@ -17,6 +17,7 @@ export async function getAll(page,limit){
     .populate("userId",["name","email","mobileNo"])
     .populate("categoryId","categoryName")
     .populate("subcategoryId","subcategoryName")
+    .sort({createdAt:-1})
 
     const total = await productModel.find().countDocuments()
     console.log(product)
