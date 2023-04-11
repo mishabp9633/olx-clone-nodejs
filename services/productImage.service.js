@@ -21,7 +21,7 @@ import userModel from "../models/user.model.js"
           url: result.secure_url,
         });
       }
-      Product.images.push(...images);
+      Product.photos.push(...images);
       const productImage = await Product.save();
       return productImage;
     }
@@ -79,7 +79,7 @@ import userModel from "../models/user.model.js"
         url: result.secure_url,
       });
     }
-    User.images.push(...images);
+    User.photos.push(...images);
     const userProfile = await User.save();
     return userProfile;
   }
@@ -106,7 +106,7 @@ import userModel from "../models/user.model.js"
     if (imageIndex === -1) {
       throw new Error('Image not found.');
     }
-    product.images.splice(imageIndex, 1);
+    product.photos.splice(imageIndex, 1);
     await product.save();
 
     await cloudinary.uploader.destroy(publicId);
