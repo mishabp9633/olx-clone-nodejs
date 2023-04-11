@@ -61,9 +61,11 @@ export const userSchema = new Schema({
       resetPasswordExpires:{
         type:Number
       },
-     profilePhoto: {
-        type:String
-      },
+      photos: [{
+        publicId: String,
+        url: String,
+        // required: true,
+      }],
       role: {
         type:String,
         default:ROLES.SELLER,
