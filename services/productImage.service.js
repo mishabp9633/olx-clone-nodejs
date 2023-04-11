@@ -27,7 +27,7 @@ import userModel from "../models/user.model.js"
     }
   
     if(userId){
-      const User = await userModel.findById(productId);
+      const User = await userModel.findById(userId);
       if(!User) throw new HttpException(404, "User not found")
       const images = [];
   
@@ -67,7 +67,7 @@ import userModel from "../models/user.model.js"
   }
 
   if(userId){
-    const User = await userModel.findById(productId);
+    const User = await userModel.findById(userId);
     if(!User) throw new HttpException(404, "User not found")
     const images = [];
 
