@@ -33,12 +33,14 @@ import { productImageCreate, productImageDelete, productImageUpdate } from "../s
     // }
 
     try {
-      const productId = req.params.id;
+      const productId = req.query.productId;
+      const userId = req.query.userId;
+
       const files = req.files;
       if (!files) {
         return res.status(400).json({ message: 'No files were uploaded.' });
       }
-      const updateProductImage = await productImageUpdate(productId, files);
+      const updateProductImage = await productImageUpdate(productId, files, userId);
 
       res.status(200).json({ message: 'image uploaded successfully' });
     } catch (error) {

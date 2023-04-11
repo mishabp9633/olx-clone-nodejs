@@ -2,6 +2,7 @@ import _ from 'lodash';
 import { HttpException } from '../exceptions/exceptions.js';
 import cloudinary from '../utils/cloudinary.utils.js';
 import productModel from "../models/product.model.js"
+import userModel from "../models/user.model.js"
 
  
 
@@ -23,8 +24,9 @@ import productModel from "../models/product.model.js"
     return productImage;
   }
 
- export async function productImageUpdate (productId, files){
+ export async function productImageUpdate (productId, files, userId){
 
+  if (productId) {
     const Product = await productModel.findById(productId);
     if(!Product) throw new HttpException(404, "product not found")
     const images = [];
@@ -40,14 +42,26 @@ import productModel from "../models/product.model.js"
     Product.images.push(...images);
     const productImage = await Product.save();
     return productImage;
+  }
 
-    // const photos = Product.images
+  if(userId){
+    const User = await userModel.findById(productId);
+    if(!User) throw new HttpException(404, "User not found")
+    const images = [];
 
-    // // Delete photos in cloudinary
-    // for (const photo of photos) {
-    //   console.log(photo);
-    //   await cloudinary.uploader.destroy(photo.public_id);
-    // }
+    for (const file of files) {
+      const public_id = `user/${file.filename}`;
+      const result = await cloudinary.uploader.upload(file.path, { public_id });
+      images.push({
+        public_id: result.public_id,
+        url: result.secure_url,
+      });
+    }
+    User.images.push(...images);
+    const userProfile = await User.save();
+    return userProfile;
+  }
+
 
   }
 
