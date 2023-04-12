@@ -11,7 +11,7 @@ const { toNumber } = lodash
 export async function save (userdata){
        const user = await userModel.findOne({username:userdata.username})
        if(user){
-        throw createError(400, 'User already registerd')
+        throw createError(400, `User already registerd with the username ${user.username}`)
        }
       const password = userdata.password
       const confirmPassword = userdata.confirmPassword

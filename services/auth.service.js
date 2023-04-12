@@ -33,37 +33,3 @@ export async function login(loginData){
      return {tokenRole}
 }
 
-
-
-//google sign in
-export async function getProfileInfo(accessToken) {
-  const oauth2Client = new google.auth.OAuth2();
-  oauth2Client.setCredentials({
-    access_token: accessToken,
-  });
-  const people = google.people({
-    version: 'v1',
-    auth: oauth2Client,
-  });
-  const { data } = await people.people.get({
-    resourceName: 'people/me',
-    personFields: 'names,photos,emails'
-  })
-
-  const name = data.names[0].displayName;
-  const photoUrl = data.photos[0].url;
-  const email = data.email[0].emails
-  const user = await googleUserModel.create({name:name,email:email,photoUrl:photoUrl})
-
-  let token = jwt.sign(
-    { _id: user._id },
-    process.env.TOKEN_KEY
-  ); 
- let tokenRoleUser={
-  role:user.role,
-  token,
-  user
-  }
-  return { tokenRoleUser }
-
-}

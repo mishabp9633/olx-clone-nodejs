@@ -1,15 +1,14 @@
 import mongoose,{Schema,model} from "mongoose";
-import { ROLES } from "../constants/role.constants.js"
+import { EMAIL_PROVIDER, ROLES } from "../constants/role.constants.js"
 
 import { isValidEmail, isValidMobileNumber } from '../utils/util.js'
-
 
 
 export const userSchema = new Schema({
   username: {
     type: mongoose.Schema.Types.String,
-    required: true,
-    lowercase: true,
+    // required: true,
+    lowercase: [true, "Please enter lowercases"],
     unique: true,
   },
   password: {
@@ -30,11 +29,11 @@ export const userSchema = new Schema({
   },
   name: {
     type: String,
-    required: true,
+    // required: true,
   },
   mobileNo: {
     type: String,
-    required: true,
+    // required: true,
     validate: {
       validator: (v)=> isValidMobileNumber(v),
       message: 'Invalid mobile number'
@@ -70,7 +69,18 @@ export const userSchema = new Schema({
         type:String,
         default:ROLES.SELLER,
         enum:[ROLES.ADMIN,ROLES.SELLER]
-      }   
+      },
+      provider: {
+        type: String,
+        required: true,
+        default: EMAIL_PROVIDER.Email
+      }, 
+      googleId: {
+        type: String
+      },
+      avatar: {
+        type: String
+      },  
   
 });
 

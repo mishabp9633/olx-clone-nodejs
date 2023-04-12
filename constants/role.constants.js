@@ -3,3 +3,7 @@ export const ROLES = {
     SELLER: 'seller',
   };
  
+  export const EMAIL_PROVIDER = {
+    Email: 'Email',
+    Google: 'Google'
+  };
