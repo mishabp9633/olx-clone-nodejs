@@ -1,6 +1,5 @@
 import mongoose,{Schema,model} from "mongoose";
 import { EMAIL_PROVIDER, ROLES } from "../constants/role.constants.js"
-
 import { isValidEmail, isValidMobileNumber } from '../utils/util.js'
 
 

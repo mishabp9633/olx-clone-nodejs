@@ -1,8 +1,4 @@
 import userModel from '../models/user.model.js'
-import googleUserModel from '../models/googleuser.mode.js'
-import { google } from 'googleapis'
-
-
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import {HttpException} from '../exceptions/exceptions.js';

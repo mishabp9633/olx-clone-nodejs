@@ -4,9 +4,10 @@ import passport from "passport";
 import { Strategy as JwtStrategy } from "passport-jwt";
 import { ExtractJwt as ExtractJwt } from "passport-jwt";
 import mongoose from "mongoose";
-import { EMAIL_PROVIDER } from "../constants/role.constants";
+import { EMAIL_PROVIDER, ROLES } from "../constants/role.constants.js";
+import userModel from '../models/user.model.js'
 
-const User = mongoose.model('User');
+const User = userModel;
 
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
@@ -28,7 +29,7 @@ passport.use(
   })
 );
 
-module.exports = async app => {
+export default async app => {
   app.use(passport.initialize());
 
   await googleAuth();
@@ -59,7 +60,8 @@ const googleAuth = async () => {
                 name: name[0][1],
                 avatar: profile.picture,
                 password: null,
-				confirmPassword: null
+				confirmPassword: null,
+				role:ROLES.SELLER
               });
 
               newUser.save((err, user) => {

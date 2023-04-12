@@ -1,5 +1,6 @@
 import { login } from "../services/auth.service.js";
 import jwt from "jsonwebtoken";
+import { ROLES } from "../constants/role.constants.js";
 //..........google sso............//
 
 export async function googleData(req,res,next){
@@ -19,7 +20,7 @@ export async function googleCheck(req, res){
       process.env.TOKEN_KEY
     ); 
 
-    let role = "user"
+    let role = ROLES.SELLER
     let tokenRole={
     role,
     token
