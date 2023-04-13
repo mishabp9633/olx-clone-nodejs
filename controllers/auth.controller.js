@@ -1,19 +1,15 @@
 import { login } from "../services/auth.service.js";
 import jwt from "jsonwebtoken";
 import { ROLES } from "../constants/role.constants.js";
-//..........google sso............//
 
+//..........google sso............//
 export async function googleData(req,res,next){
   res.status(200).json({
 		message:"success"
-	});
-   
+	})  
 }
 
 export async function googleCheck(req, res){
-    const payload = {
-      id: req.user.id
-    };
 
     let token = jwt.sign(
       { _id: req.user.id },
@@ -28,8 +24,6 @@ export async function googleCheck(req, res){
 
       res.send(tokenRole)
   }
-
-
 //..........google sso............//
 
 //...........login...............// 

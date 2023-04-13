@@ -1,11 +1,9 @@
-
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import passport from "passport";
 import { Strategy as JwtStrategy } from "passport-jwt";
 import { ExtractJwt as ExtractJwt } from "passport-jwt";
-import mongoose from "mongoose";
 import { EMAIL_PROVIDER, ROLES } from "../constants/role.constants.js";
-import userModel from '../models/user.model.js'
+import userModel from "../models/user.model.js";
 
 const User = userModel;
 
@@ -16,20 +14,20 @@ opts.secretOrKey = process.env.TOKEN_KEY;
 passport.use(
   new JwtStrategy(opts, (payload, done) => {
     User.findById(payload.id)
-      .then(user => {
+      .then((user) => {
         if (user) {
           return done(null, user);
         }
 
         return done(null, false);
       })
-      .catch(err => {
+      .catch((err) => {
         return done(err, false);
       });
   })
 );
 
-export default async app => {
+export default async (app) => {
   app.use(passport.initialize());
 
   await googleAuth();
@@ -42,16 +40,16 @@ const googleAuth = async () => {
         {
           clientID: process.env.CLIENT_ID,
           clientSecret: process.env.CLIENT_SECRET,
-          callbackURL: process.env.CLIENT_URL
+          callbackURL: process.env.CLIENT_URL,
         },
         (accessToken, refreshToken, profile, done) => {
           User.findOne({ email: profile.email })
-            .then(user => {
+            .then((user) => {
               if (user) {
                 return done(null, user);
               }
 
-              const name = profile.displayName.split(' ');
+              const name = profile.displayName.split(" ");
 
               const newUser = new User({
                 provider: EMAIL_PROVIDER.Google,
@@ -60,8 +58,8 @@ const googleAuth = async () => {
                 name: name[0][1],
                 avatar: profile.picture,
                 password: null,
-				confirmPassword: null,
-				role:ROLES.SELLER
+                confirmPassword: null,
+                role: ROLES.SELLER,
               });
 
               newUser.save((err, user) => {
@@ -72,14 +70,13 @@ const googleAuth = async () => {
                 return done(null, user);
               });
             })
-            .catch(err => {
+            .catch((err) => {
               return done(err, false);
             });
         }
       )
     );
   } catch (error) {
-    console.log('Missing google keys');
+    console.log("Missing google keys");
   }
-}
-
+};

@@ -9,6 +9,6 @@ const router = express.Router()
 const path = "/count"
 
 // ...........seller...........//
-router.get(`${path}/all`, authorizeRoles([ROLES.ADMIN]), getAllCount)
+router.get(`${path}/all`, authorizeRoles( [ROLES.ADMIN] ), getAllCount)
 
 export default router

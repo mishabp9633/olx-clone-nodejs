@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import 'dotenv/config';
 import configurePassport from './utils/passport.js';
+import socket from './socket/index.js'
 
 import { initialize } from './database/connection.js';
 
@@ -43,4 +44,7 @@ import {errorHandling} from './middlewares/error.middleware.js'
   app.listen(port , ()=>{
    console.log(`server listening at http://localhost:${port}`);
   })
- 
+
+const socketServer = process.env.SOCKET_PORT || 8000 ;
+socket(socketServer);
+console.log(`socket server listening at http://localhost:${socketServer}`);
