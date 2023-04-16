@@ -85,3 +85,15 @@ export const userSchema = new Schema({
 
 const user = model("User", userSchema);
 export default user;
+
+
+//..................default image ......................//
+// photos: [{
+//   publicId:{
+//     type:String
+//   },
+//   url:{
+//     type:String,
+//     default:"https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
+//   },
+// }],

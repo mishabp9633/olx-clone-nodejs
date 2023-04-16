@@ -2,7 +2,7 @@ import  mongoose  from 'mongoose';
 mongoose.set('strictQuery', false);
 
 const connection_string =
-  "mongodb://localhost:27017/Olx-clone";
+  "mongodb://127.0.0.1:27017/Olx-clone";
 
   export async function initialize(){
     try{
