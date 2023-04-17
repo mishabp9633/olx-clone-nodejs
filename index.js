@@ -11,12 +11,12 @@ import categoryRouter from './routes/category.route.js'
 import subcategoryRouter from './routes/subcategory.route.js'
 import productRouter from './routes/product.route.js'
 import staticRouter from './routes/static.route.js'
-import ProductImageRouter from "./routes/productImage.route.js";
+import productImageRouter from "./routes/productImage.route.js";
 import chatRouter from "./routes/chat.route.js";
 import messageRouter from "./routes/message.route.js";
 
 // import swaggerRouter from './swagger.js';
-
+import startSocket from './utils/socket.js'; 
 import {errorHandling} from './middlewares/error.middleware.js'
 
   await initialize()
@@ -36,7 +36,7 @@ import {errorHandling} from './middlewares/error.middleware.js'
     subcategoryRouter,
     productRouter,
     staticRouter,
-    ProductImageRouter,
+    productImageRouter,
     chatRouter,
     messageRouter
     )
@@ -48,48 +48,49 @@ import {errorHandling} from './middlewares/error.middleware.js'
    console.log(`server listening at http://localhost:${port}`);
   })
 
-
-import { Server } from "socket.io";
-const io = new Server(server, {
-  pingTimeout: 60000,
-  cors: {
-    origin: "http://localhost:3000",
-    // credentials: true,
-  },
-});
+  startSocket(server)
 
 
-io.on("connection", (socket) => {
-  console.log("Connected to socket.io");
-  socket.on("setup", (userData) => {
-    socket.join(userData._id);
-    socket.emit("connected");
-  });
+// import { Server } from "socket.io";
+// const io = new Server(server, {
+//   pingTimeout: 60000,
+//   cors: {
+//     origin: "http://localhost:3000",
+//     // credentials: true,
+//   },
+// });
 
-  socket.on("join chat", (room) => {
-    socket.join(room);
-    console.log("User Joined Room: " + room);
-  });
-  socket.on("typing", (room) => socket.in(room).emit("typing"));
-  socket.on("stop typing", (room) => socket.in(room).emit("stop typing"));
+// io.on("connection", (socket) => {
+//   console.log("Connected to socket.io");
+//   socket.on("setup", (userData) => {
+//     socket.join(userData._id);
+//     socket.emit("connected");
+//   });
 
-  socket.on("new message", (newMessageRecieved) => {
-    var chat = newMessageRecieved.chat;
+//   socket.on("join chat", (room) => {
+//     socket.join(room);
+//     console.log("User Joined Room: " + room);
+//   });
+//   socket.on("typing", (room) => socket.in(room).emit("typing"));
+//   socket.on("stop typing", (room) => socket.in(room).emit("stop typing"));
 
-    if (!chat.users) return console.log("chat.users not defined");
+//   socket.on("new message", (newMessageRecieved) => {
+//     var chat = newMessageRecieved.chat;
 
-    chat.users.forEach((user) => {
-      if (user._id == newMessageRecieved.sender._id) return;
+//     if (!chat.users) return console.log("chat.users not defined");
 
-      socket.in(user._id).emit("message recieved", newMessageRecieved);
-    });
-  });
+//     chat.users.forEach((user) => {
+//       if (user._id == newMessageRecieved.sender._id) return;
 
-  socket.off("setup", () => {
-    console.log("USER DISCONNECTED");
-    socket.leave(userData._id);
-  });
-});
+//       socket.in(user._id).emit("message recieved", newMessageRecieved);
+//     });
+//   });
+
+//   socket.off("setup", () => {
+//     console.log("USER DISCONNECTED");
+//     socket.leave(userData._id);
+//   });
+// });
 
 
 
