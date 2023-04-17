@@ -9,7 +9,7 @@ import { ROLES } from "../constants/role.constants.js"
 const router = Router();
 const path = "/message"
 
-router.post(`${path}/:chatId`, authorizeRoles([ROLES.SELLER]), allMessages);
 router.post(`${path}/send`, authorizeRoles([ROLES.SELLER]), sendMessage);
+router.get(`${path}/get/:chatId`, authorizeRoles([ROLES.SELLER]), allMessages);
 
 export default router

@@ -8,9 +8,9 @@ import { messageAll, messageSend,
 
 export async function allMessages(req, res, next) {
   try {
-    const chat = req.params.chatId;
+    const chatId = req.params.chatId;
 
-    const result = await messageAll(chat);
+    const result = await messageAll(chatId);
     res.status(200).send(result);
   } catch (err) {
     console.log(err);
@@ -24,7 +24,7 @@ export async function allMessages(req, res, next) {
 
 export async function sendMessage(req, res, next) {
   try {
-    const tokenUser = req.body.userId;
+    const tokenUser = req.body.user._id;
     const chat = req.body.chatId;
     const content = req.body.content
 

@@ -14,7 +14,7 @@ import {
 export async function accessChat(req, res, next) {
   try {
     const userId = req.body.userid;
-    const tokenUser = req.body.userId;
+    const tokenUser = req.body.user._id;
 
     const result = await chatAccess(userId, tokenUser);
     res.status(200).send(result);
@@ -30,9 +30,11 @@ export async function accessChat(req, res, next) {
 
 export async function fetchChats(req, res, next) {
   try {
-    const tokenUser = req.body.userId;
+    const tokenUser = req.body.user._id;
+    console.log(tokenUser);
 
     const result = await chatFetch(tokenUser);
+    console.log("dfdfdf",result);
     res.status(200).send(result);
   } catch (err) {
     console.log(err);
@@ -48,7 +50,7 @@ export async function createGroupChat(req, res, next) {
   try {
     const users = req.body.users;
     const name = req.body.name;
-    const tokenUser = req.body.userId;
+    const tokenUser = req.body.user._id;
 
     const result = await groupChatCreate(tokenUser, users, name);
     res.status(200).send(result);

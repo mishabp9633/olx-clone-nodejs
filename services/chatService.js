@@ -42,42 +42,43 @@ export async function chatAccess(userId, tokenUser){
             "-confirmPassword"]
           );
           return FullChat
-
       }
 }
 
 export async function chatFetch(tokenUser){
 
-    Chat.find({ users: { $elemMatch: { $eq: tokenUser} } })
+  let result 
+   await Chat.find({ users: { $elemMatch: { $eq: tokenUser} } })
     .populate("users", ["-password","-confirmPassword"])
     .populate("groupAdmin", ["-password","-confirmPassword"])
     .populate("latestMessage")
     .sort({ updatedAt: -1 })
+
     .then(async (results) => {
       results = await User.populate(results, {
         path: "latestMessage.sender",
-        select: "name pic email",
+        select: "name photos email",
       });
-      return results
+      result = results
     })
+    return result
 }
 
 
 export async function groupChatCreate(tokenUser, users, name){
 
-    if (!users || name) {
+  let user = users
+
+    if (!users || !name) {
         throw new HttpException(404, "Please enter name")
       }
-    
-      var users = JSON.parse(users)
     
       if (users.length < 2) {
           throw new HttpException(404,"More than 2 users are required to form a group chat")
       }
     
-      users.push(tokenUser)
+      user.push(tokenUser)
     
-      
         const groupChat = await Chat.create({
           chatName: name,
           users: users,
