@@ -32,9 +32,10 @@ export async function userData(req, res, next) {
 
 export async function getusers(req, res, next) {
     try {
+        const userId = req.body.user._id
         const page = req.query.page
         const limit = req.query.limit || '10'
-        const result = await getAllData(page, limit)
+        const result = await getAllData(userId, page, limit)
         res.send(result)
     }
     catch (err) {

@@ -29,8 +29,9 @@ export async function save (userdata){
 }
 
 
-export async function getAllData (page, limit){
-    const result = await userModel.find({role:"seller"})
+export async function getAllData (userId, page, limit){
+  console.log(userId);
+    const result = await userModel.find({role:"seller",_id: { $ne: userId }})
     .limit(toNumber(limit))
     .skip((toNumber(page ? page : 1) - 1) * toNumber(limit))
     const total = await userModel.find().countDocuments()
