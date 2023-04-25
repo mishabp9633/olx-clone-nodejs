@@ -8,7 +8,6 @@ import {
 } from "../services/chatService.js";
 
 //@description     Create or fetch One to One Chat
-//@route           POST /api/chat/
 //@access          Protected
 
 export async function accessChat(req, res, next) {
@@ -25,7 +24,6 @@ export async function accessChat(req, res, next) {
 }
 
 //@description     Fetch all chats for a user
-//@route           GET /api/chat/
 //@access          Protected
 
 export async function fetchChats(req, res, next) {
@@ -34,7 +32,6 @@ export async function fetchChats(req, res, next) {
     console.log(tokenUser);
 
     const result = await chatFetch(tokenUser);
-    console.log("dfdfdf",result);
     res.status(200).send(result);
   } catch (err) {
     console.log(err);
@@ -43,7 +40,6 @@ export async function fetchChats(req, res, next) {
 }
 
 //@description     Create New Group Chat
-//@route           POST /api/chat/group
 //@access          Protected
 
 export async function createGroupChat(req, res, next) {
@@ -61,7 +57,6 @@ export async function createGroupChat(req, res, next) {
 }
 
 // @desc    Rename Group
-// @route   PUT /api/chat/rename
 // @access  Protected
 
 export async function renameGroup(req, res, next) {
@@ -78,7 +73,6 @@ export async function renameGroup(req, res, next) {
 }
 
 // @desc    Remove user from Group
-// @route   PUT /api/chat/groupremove
 // @access  Protected
 
 export async function removeFromGroup(req, res, next) {
@@ -95,7 +89,6 @@ export async function removeFromGroup(req, res, next) {
 }
 
 // @desc    Add user to Group / Leave
-// @route   PUT /api/chat/groupadd
 // @access  Protected
 
 export async function addToGroup(req, res, next) {
