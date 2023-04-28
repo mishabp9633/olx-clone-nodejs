@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import 'dotenv/config';
 import configurePassport from './utils/passport.js'
+import ip from 'ip'
 
 import { initialize } from './database/connection.js'
 
@@ -44,9 +45,13 @@ import {errorHandling} from './middlewares/error.middleware.js'
   //swager
   app.use(errorHandling)
 
+
   const port = process.env.PORT || 5000 ;
   const server = app.listen(port , ()=>{
-   console.log(`server listening at http://localhost:${port}`);
+   console.log(`//........... Nodejs ...........//`)
+   console.log(`server listening at port http://localhost:${port}`)
+   console.log(`//............ip address: ${ip.address()} ..........//`);
+
   })
 
   startSocket(server)
