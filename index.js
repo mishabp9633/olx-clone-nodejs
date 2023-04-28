@@ -1,9 +1,9 @@
 import express from "express";
 import cors from "cors";
 import 'dotenv/config';
-import configurePassport from './utils/passport.js';
+import configurePassport from './utils/passport.js'
 
-import { initialize } from './database/connection.js';
+import { initialize } from './database/connection.js'
 
 import userRouter from './routes/user.route.js'
 import authRouter from './routes/auth.route.js'
@@ -11,9 +11,9 @@ import categoryRouter from './routes/category.route.js'
 import subcategoryRouter from './routes/subcategory.route.js'
 import productRouter from './routes/product.route.js'
 import staticRouter from './routes/static.route.js'
-import productImageRouter from "./routes/productImage.route.js";
-import chatRouter from "./routes/chat.route.js";
-import messageRouter from "./routes/message.route.js";
+import productImageRouter from "./routes/productImage.route.js"
+import chatRouter from "./routes/chat.route.js"
+import messageRouter from "./routes/message.route.js"
 
 // import swaggerRouter from './swagger.js';
 import startSocket from './utils/socket.js'; 
