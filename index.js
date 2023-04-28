@@ -41,6 +41,7 @@ import {errorHandling} from './middlewares/error.middleware.js'
     messageRouter
     )
   // app.use('/swagger', swaggerRouter); 
+  //swager
   app.use(errorHandling)
 
   const port = process.env.PORT || 5000 ;
