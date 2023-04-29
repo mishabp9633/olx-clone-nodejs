@@ -1,5 +1,5 @@
 
-import { Router } from 'express';
+import { Router } from 'express'
 import multer from 'multer'
 import { ROLES } from '../constants/role.constants.js';
 import { createProductImage, deleteProductImage, updateProductImage } from '../controllers/productImage.controller.js';

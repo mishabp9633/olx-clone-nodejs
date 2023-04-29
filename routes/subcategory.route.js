@@ -5,10 +5,10 @@ import {
   saveSubcategory,
   updateSubcategory,
   deleteSubcategory,
-} from "../controllers/subcategory.controller.js";
+} from "../controllers/subcategory.controller.js"
 
-import { subcategoryValidator } from "../middlewares/subcategory.validator.js";
-import { authorizeRoles } from "../middlewares/auth.middleware.js";
+import { subcategoryValidator } from "../middlewares/subcategory.validator.js"
+import { authorizeRoles } from "../middlewares/auth.middleware.js"
 import { ROLES } from "../constants/role.constants.js";
 
 const router = express.Router();
