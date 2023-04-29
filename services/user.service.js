@@ -1,10 +1,10 @@
 import userModel from "../models/user.model.js"
-import nodemailer from "nodemailer"
 import bcrypt from "bcrypt"
 import crypto from 'crypto'
 import createError from "http-errors"
 import {HttpException} from '../exceptions/exceptions.js';
 import lodash from 'lodash';
+import sendMail from "../utils/mailgun.js";
 const { toNumber } = lodash
 
 
@@ -74,64 +74,40 @@ export async function Delete (id){
 }
 
 
-export async function forgotPassword(email,CLIENT_ID,CLIENT_SECRETE,accessToken,REFRESH_TOKEN){
+export async function forgotPassword(email){
+  
     const user = await userModel.findOne({email}) 
-
+  
+      if(!user)throw new HttpException (404,"User not found by the given Email")
+  
     const token = crypto.randomBytes(20).toString('hex');
     const frontendURl = 'http://localhost:3000'
     const resetLink = `${frontendURl}/resetpassword/${token}`;
-
-    // if (!user){
-    //     res.status(400).send({message:'user not found'})
-    // }
  
     user.resetPasswordToken = token;
     user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
     await user.save();
-    
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-          type: 'OAuth2',
-          user: 'mishabp9633@gmail.com',
-          clientId:CLIENT_ID,
-          clientSecret:CLIENT_SECRETE,
-          refreshToken:REFRESH_TOKEN,
-          accessToken: accessToken
-      }
-  });
 
-    const mailOptions = {
-        from: 'mishabp9633@gmail.com',
-        to: user.email,
-        subject: 'Password Reset',
-        html: `<p>Please click <a href="${resetLink}">here</a> to reset your password</p>`
-    }
+    let Token = {
+      resetToken: user.resetPasswordToken,
+      message: 'check your mail and create your new password'
+  }
 
-    // Generate a unique token and send password reset link via email
+    await sendMail(email,resetLink)
 
-   
-
-    
- const result = transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log(`Password reset email sent: ${info.response}`);
-      }
-    });
-    return {result}
+    return {Token}
   } 
 
 
 export async function resetPassword(password,confirmPassword,token){
       // Check if the token is valid and has not expired
-
-
       const user = await userModel.findOne({
         resetPasswordToken: token,
         resetPasswordExpires: { $gt: Date.now() }
       });
+      if (!user) {
+         throw new HttpException (404,"Password reset token is invalid or has expired")
+    }
 
       const salt = await bcrypt.genSalt(10);
       const Password = await bcrypt.hash(password,salt)
@@ -147,9 +123,42 @@ export async function resetPassword(password,confirmPassword,token){
 return {user}
 }
 
+
 export async function usernameCheck(nameCheckText, userId){
   const user = await this.users.findOne({ username: nameCheckText })
   return userId
     ? toString(user?._id) === userId
     : !user;
 }
+
+
+    //old forgot password
+  //   const transporter = nodemailer.createTransport({
+  //     service: 'gmail',
+  //     auth: {
+  //         type: 'OAuth2',
+  //         user: 'mishabp9633@gmail.com',
+  //         clientId:CLIENT_ID,
+  //         clientSecret:CLIENT_SECRETE,
+  //         refreshToken:REFRESH_TOKEN,
+  //         accessToken: accessToken
+  //     }
+  // });
+
+  //   const mailOptions = {
+  //       from: 'mishabp9633@gmail.com',
+  //       to: user.email,
+  //       subject: 'Password Reset',
+  //       html: `<p>Please click <a href="${resetLink}">here</a> to reset your password</p>`
+  //   }
+
+    // Generate a unique token and send password reset link via email
+
+    
+//  const result = transporter.sendMail(mailOptions, (error, info) => {
+//       if (error) {
+//         console.log(error);
+//       } else {
+//         console.log(`Password reset email sent: ${info.response}`);
+//       }
+//     });

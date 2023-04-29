@@ -1,13 +1,10 @@
 import {
     getAllData, getSingleData, update, Delete, 
     save, forgotPassword, resetPassword, 
-    // getDataUserByToken, 
     getDataAdminByToken,
     usernameCheck,
 } from '../services/user.service.js'
 
-import { google } from 'googleapis'
-import userModel from "../models/user.model.js"
 import { deleteUserProduct } from '../services/product.service.js'
 
 
@@ -138,30 +135,13 @@ export async function deleteUserByAdminData(req, res, next) {
 
 
 export async function forgot(req, res, next) {
+
     try {
         const email = req.body.email
-        const CLIENT_ID = process.env.CLIENT_ID
-        const CLIENT_SECRETE = process.env.CLIENT_SECRETE
-        const REDIRECT_URI = process.env.REDIRECT_URI
-        const REFRESH_TOKEN = process.env.REFRESH_TOKEN
 
-
-        const user = await userModel.findOne({ email });
-        if (!user) {
-            return res.status(400).send({ message: 'User not found' });
-        }
-
-        const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRETE, REDIRECT_URI)
-        oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN })
-        const accessToken = await oAuth2Client.getAccessToken()
-
-        const result = await forgotPassword(email, CLIENT_ID, CLIENT_SECRETE, REDIRECT_URI, REFRESH_TOKEN, accessToken)
-        let Token = {
-            resetToken: user.resetPasswordToken,
-            message: 'check your mail and create your new password'
-        }
-
-        res.status(200).send({ Token })
+        const result = await forgotPassword(email)
+  
+        res.status(200).send( result )
     } catch (error) {
         next(error)
     }
@@ -173,17 +153,6 @@ export async function reset(req, res, next) {
 
     try {
         const token = req.params.id
-
-
-        const user = await userModel.findOne({
-            resetPasswordToken: token,
-            resetPasswordExpires: { $gt: Date.now() }
-        })
-        if (!user) {
-            return res.status(404).send({ message: 'Password reset token is invalid or has expired' });
-        }
-
-
         const confirmPassword = req.body.confirmPassword
         const password = req.body.password
 
@@ -207,4 +176,40 @@ export async function checkUsername(req, res, next) {
       next(error);
     }
   }
+
+
+
+
+//old forgot password
+// export async function forgot(req, res, next) {
+
+//     try {
+//         const email = req.body.email
+//         const CLIENT_ID = process.env.CLIENT_ID
+//         const CLIENT_SECRETE = process.env.CLIENT_SECRETE
+//         const REDIRECT_URI = process.env.REDIRECT_URI
+//         const REFRESH_TOKEN = process.env.REFRESH_TOKEN
+
+
+//         const user = await userModel.findOne({ email });
+//         if (!user) {
+//             return res.status(400).send({ message: 'User not found' });
+//         }
+
+//         const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRETE, REDIRECT_URI)
+//         oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN })
+//         const accessToken = await oAuth2Client.getAccessToken()
+
+//         const result = await forgotPassword(email, CLIENT_ID, CLIENT_SECRETE, REDIRECT_URI, REFRESH_TOKEN, accessToken)
+//         let Token = {
+//             resetToken: user.resetPasswordToken,
+//             message: 'check your mail and create your new password'
+//         }
+
+//         res.status(200).send({ Token })
+//     } catch (error) {
+//         next(error)
+//     }
+// }
+
 
