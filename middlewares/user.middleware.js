@@ -8,7 +8,7 @@ export function userMiddleware(req, res, next) {
     let { username, password, name, mobileNo, email,confirmPassword } = req.body;
 
   if (!username) {
-    res.send({message:"Username is required"});
+    res.send({message:"Username is required"})
     return
   }
   if (!password) {

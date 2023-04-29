@@ -87,9 +87,9 @@ const productSchema = new Schema({
 
 }, { timestamps: true });
 
-productSchema.index({ location: "2dsphere" });
+productSchema.index({ location: "2dsphere" })
 
-const Product = model("Product", productSchema);
+const Product = model("Product", productSchema)
 
 export default Product;
 

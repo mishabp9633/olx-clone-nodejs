@@ -4,11 +4,11 @@ export function loginValidator(req, res, next) {
       let { username, password} = req.body;
   
     if (!username) {
-      res.send({message:"Username is required"});
+      res.send({message:"Username is required"})
       return
     }
     if (!password) {
-      res.send({message:"password is required"});
+      res.send({message:"password is required"})
       return
     }
       
