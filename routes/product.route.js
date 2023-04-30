@@ -15,14 +15,14 @@ const path = "/product"
 
 // ...........seller...........//
 router.post(`${path}/new`, authorizeRoles([ROLES.SELLER]), saveProduct)
-router.get(`${path}/seller/all`, getAllProductUserByToken)
+router.get(`${path}/seller/all`,authorizeRoles([ROLES.SELLER]), getAllProductUserByToken)
 router.get(`${path}/seller/all/:id`, getSingleProduct)
 router.put(`${path}/seller/update/:id`, authorizeRoles([ROLES.ADMIN,ROLES.SELLER]), updateProductDataByToken)
 router.put(`${path}/seller/update/photos/:id`,authorizeRoles([ROLES.ADMIN,ROLES.SELLER]), updateProductPhotoByToken)
 router.delete(`${path}/seller/delete/:id`, authorizeRoles([ROLES.SELLER]), deleteProductDataByToken)
 
 //...........admin..............//
-router.get(`${path}/admin/all`, authorizeRoles([ROLES.ADMIN,ROLES.SELLER]), getAllProduct)
+router.get(`${path}/admin/all`, getAllProduct)
 router.delete(`${path}/admin/delete/:id`, authorizeRoles([ROLES.ADMIN]), deleteProduct)
 
 export default router
