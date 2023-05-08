@@ -45,23 +45,49 @@ export async function chatAccess(userId, tokenUser){
       }
 }
 
-export async function chatFetch(tokenUser){
+// export async function chatFetch(tokenUser){
 
+//   let result 
+//    await Chat.find({ users: { $elemMatch: { $eq: tokenUser} } })
+//     .populate("users", ["-password","-confirmPassword"])
+//     .populate("groupAdmin", ["-password","-confirmPassword"])
+//     .populate("latestMessage")
+//     .sort({ updatedAt: -1 })
+
+//     .then(async (results) => {
+//       results = await User.populate(results, {
+//         path: "latestMessage.sender",
+//         select: "name photos email",
+//       });
+//       result = results
+//     })
+//     return result
+// }
+
+export async function chatFetch(tokenUser){
   let result 
-   await Chat.find({ users: { $elemMatch: { $eq: tokenUser} } })
+  await Chat.find()
     .populate("users", ["-password","-confirmPassword"])
     .populate("groupAdmin", ["-password","-confirmPassword"])
     .populate("latestMessage")
     .sort({ updatedAt: -1 })
-
     .then(async (results) => {
       results = await User.populate(results, {
         path: "latestMessage.sender",
         select: "name photos email",
       });
-      result = results
+
+      // Exclude token user's data from the response
+      result = results.map(chat => {
+        const users = chat.users.filter(user => user._id.toString() !== tokenUser._id.toString())
+        return {
+          ...chat.toObject(),
+          users,
+        }
+      })
     })
-    return result
+
+  return result
 }
 
 
