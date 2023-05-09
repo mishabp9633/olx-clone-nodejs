@@ -66,7 +66,7 @@ export async function chatAccess(userId, tokenUser){
 
 export async function chatFetch(tokenUser){
   let result 
-  await Chat.find()
+  await Chat.find({ users: { $elemMatch: { $eq: tokenUser} } })
     .populate("users", ["-password","-confirmPassword"])
     .populate("groupAdmin", ["-password","-confirmPassword"])
     .populate("latestMessage")
