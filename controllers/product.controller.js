@@ -66,9 +66,10 @@ import {  Delete, deleteProductByToken,
 
 export async function getAllProduct(req,res,next){
     try{
+      const query = req.query
       const page = req.query.page
       const limit = req.query.limit || '10'
-        const result = await getAll(page,limit)
+        const result = await getAll(page,limit,query)
 
         console.log('result',result)
         res.status(200).send(result)

@@ -29,9 +29,17 @@ export async function save (userdata){
 }
 
 
-export async function getAllData (userId, page, limit){
-  console.log(userId);
-    const result = await userModel.find({role:"seller",_id: { $ne: userId }})
+export async function getAllData (userId, page, limit,query){
+  let queryData = {role:"seller",_id: { $ne: userId }}
+
+  if(query?.search){
+    queryData["$or"]=[
+      {name : { $regex: query?.search ? query?.search : '', $options: 'i' }},
+      {username : { $regex: query?.search ? query?.search : '', $options: 'i' }},  
+    ]
+  }
+
+    const result = await userModel.find(queryData)
     .limit(toNumber(limit))
     .skip((toNumber(page ? page : 1) - 1) * toNumber(limit))
     const total = await userModel.find().countDocuments()

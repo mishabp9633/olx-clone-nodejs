@@ -10,8 +10,18 @@ export async function save(productData){
     return {product}
 }
 
-export async function getAll(page,limit){
-    const product = await productModel.find()
+export async function getAll(page,limit,query){
+
+    const product = await productModel.find({
+      $or:[
+         {title : { $regex: query?.search ? query?.search : '', $options: 'i' }}, 
+         {brand : { $regex: query?.search ? query?.search : '', $options: 'i' }},
+         {district : { $regex: query?.search ? query?.search : '', $options: 'i' }},
+         {city : { $regex: query?.search ? query?.search : '', $options: 'i' }},
+         {type : { $regex: query?.search ? query?.search : '', $options: 'i' }}
+       ]
+    }   
+    )
     .limit(toNumber(limit))
     .skip((toNumber(page ? page : 1) - 1) * toNumber(limit))
     .populate("userId",["name","email","mobileNo"])
