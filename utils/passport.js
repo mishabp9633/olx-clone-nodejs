@@ -2,7 +2,7 @@ import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import passport from "passport";
 import { Strategy as JwtStrategy } from "passport-jwt";
 import { ExtractJwt as ExtractJwt } from "passport-jwt";
-import { EMAIL_PROVIDER, ROLES } from "../constants/role.constants.js";
+import { EMAIL_PROVIDER, ROLES } from "../constants/role.constants.js"
 import userModel from "../models/user.model.js";
 
 const User = userModel;
